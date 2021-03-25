@@ -13,7 +13,14 @@
     "mocha": "^8.3.2"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha  "
+  },
+  "mocha": {
+
+    "timeout": "2000",
+    "ui": "bdd",
+    "spec": ["src/test/**/*.js"],
+    "watch-ignore": ["lib/vendor"]
   },
   "repository": {
     "type": "git",

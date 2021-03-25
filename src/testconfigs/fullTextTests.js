@@ -99,6 +99,26 @@ exports.fullTextTests = {
                exact: true
            },
            expectedCount: 142
+       },
+       {
+           name: '2019 northridge earthquake exact',
+           params: {
+               q:'2019 northridge earthquake',
+               n: 10000,
+               o: 0,
+               exact: true
+           },
+           expectedCount: 142
+       },
+       {
+           name: '2019 northridge earthquake not all match',
+           params: {
+               q:'2019 northridge earthquake',
+               n: 10000,
+               o: 0,
+               exact: false
+           },
+           expectedCount: 3842
        }
    ]
 }
