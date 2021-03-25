@@ -1,0 +1,18 @@
+PREFIX sdo:  <https://schema.org/>
+
+ASK
+WHERE
+{
+  graph <urn:gleaner:milled:ocd:917529917c29eae1fcab0618f8f85f5587c771bb> {
+	
+   ?s  <https://schema.org/additionType> ?type .
+	}
+	  BIND (str(?type) as ?label)
+   SERVICE <http://132.249.238.169:8080/fuseki/ecrr/query> {
+	   GRAPH <http://earthcube.org/gleaner-summoned> 
+	   {               
+		 ?rrs sdo:supportingData/sdo:encodingFormat  ?label .
+		 ?rrs sdo:name ?rrname.
+		}
+	}    
+ }
