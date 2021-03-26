@@ -4,7 +4,7 @@ var path = require('path')
 var expect = require("chai").expect;
 var should = require('chai').should();
 var fullTextTests = require("../testconfigs/fullTextTests")
-var results = require("../sparql_testing")
+var results = require("../eco_sparql_testing")
 
 describe("Geodex", function () {
     let key = "geodex"
@@ -32,16 +32,21 @@ describe("Geodex", function () {
             function (t) {
                 it(`${key} duplicate full text for ${t.name} `, async function () {
 
-                    const response = await results.results(template, t.params, server)
-                    var b = await response.data.results.bindings
-                    // dupe
-                    console.log(`results.bindings.length ${b.length}`)
-                    const gb = _.groupBy(b, s =>  s.s.value )
-                    const dupes = _.pickBy(gb,x => x.length > 1)
+                    // const response = await results.results(template, t.params, server)
+                    // var b = await response.data.results.bindings
+                    // // dupe
+                    // console.log(`results.bindings.length ${b.length}`)
+                    // const gb = _.groupBy(b, s =>  s.s.value )
+                    // const dupes = _.pickBy(gb,x => x.length > 1)
+                    //
+                    // var filename = __dirname + '/../../results/'+key +'/' + t.name +'_dupes.json';
+                    // fs.writeFileSync(filename, JSON.stringify(dupes,null,2), { flag: 'w+' })
+
+                    var results = await testing.results(template,t.params,server)
 
                     var filename = __dirname + '/../../results/'+key +'/' + t.name +'_dupes.json';
-                    fs.writeFileSync(filename, JSON.stringify(dupes,null,2), { flag: 'w+' })
 
+                    var dupes = testing.dupes(results, 's', filename)
                     Object.keys(dupes).should.have.length(0)
                     console.log(dupes)
 
