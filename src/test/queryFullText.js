@@ -9,13 +9,14 @@ describe("queryFullText", function () {
 
         let templates = fullTextTests.fullTextTests.templates
 
-        templates.forEach(function (template,key) {
+
             let tests = fullTextTests.fullTextTests.tests
             let server = fullTextTests.fullTextTests.server
             let name = fullTextTests.fullTextTests.name
 
             fullTextTests.fullTextTests.tests.forEach(
                 function (t) {
+                    templates.forEach(function (template,key) {
                     it(`${key} full text for ${t.name} `, async function () {
 
                         const response = await results.results(template, t.params, server)
@@ -35,63 +36,39 @@ describe("queryFullText", function () {
         ;
 
     });
-    describe("dupe test for geocodes", function () {
-        let key = "geocode"
-        let template = fullTextTests.fullTextTests.templates.get(key)
-
-       // templates.forEach(function (template,key) {
-            let tests = fullTextTests.fullTextTests.tests
-            let server = fullTextTests.fullTextTests.server
-            let name = fullTextTests.fullTextTests.name
-
-            fullTextTests.fullTextTests.tests.forEach(
-                function (t) {
-                    it(`${key} duplicate full text for ${t.name} `, async function () {
-
-                        const response = await results.results(template, t.params, server)
-                        var b = await response.data.results.bindings
-                        // dupe
-                        console.log(`results.bindings.length ${b.length}`)
-                        const gb = _.groupBy(b, s =>  s.subj.value )
-                        const dupes = _.pickBy(gb,x => x.length > 1)
-                        Object.keys(dupes).should.have.length(0)
-                        console.log(dupes)
+    describe("Compare Results", function () {
 
 
-                    }).timeout(10000)
-                }
-            )
-       // })
+
+        fullTextTests.fullTextTests.tests.forEach(
+            function (t) {
+                let templates = fullTextTests.fullTextTests.templates
+                let templateKeys = [...templates.keys()]
+                let key0= templateKeys[0]
+                let key1 = templateKeys[1]
+
+                let tests = fullTextTests.fullTextTests.tests
+                let server = fullTextTests.fullTextTests.server
+                let name = fullTextTests.fullTextTests.name
+                        it(`compare  ${t.name} `, async function () {
+
+                            const response0 = await results.results(templates.get(key0), t.params, server)
+                            var r0 = await response0.data.results.bindings
+                            const response1 = await results.results(templates.get(key1), t.params, server)
+                            var r1 = await response1.data.results.bindings
+                            r0.length.should.equal(r1.length);
+                            // dupe
+                            // const gb = _.groupBy(b, s =>  s.s.value )
+                            // const dupes = _.pickBy(gb,x => x.length > 1)
+                            //
+                            // console.log(dupes)
+
+
+                        }).timeout(10000)
+
+
+            })
         ;
-        describe("dupe test for geodex", function () {
-            let key = "geodex"
-            let template = fullTextTests.fullTextTests.templates.get(key)
 
-            // templates.forEach(function (template,key) {
-            let tests = fullTextTests.fullTextTests.tests
-            let server = fullTextTests.fullTextTests.server
-            let name = fullTextTests.fullTextTests.name
-
-            fullTextTests.fullTextTests.tests.forEach(
-                function (t) {
-                    it(`${key} duplicate full text for ${t.name} `, async function () {
-
-                        const response = await results.results(template, t.params, server)
-                        var b = await response.data.results.bindings
-                        // dupe
-                        console.log(`results.bindings.length ${b.length}`)
-                        const gb = _.groupBy(b, s =>  s.s.value )
-                        const dupes = _.pickBy(gb,x => x.length > 1)
-                        Object.keys(dupes).should.have.length(0)
-                        console.log(dupes)
-
-
-                    }).timeout(10000)
-                }
-            )
-            // })
-            ;
-
-        });
     });
 });

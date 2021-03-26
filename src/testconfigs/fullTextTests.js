@@ -5,7 +5,7 @@ exports.fullTextTests = {
     server: 'https://graph.geodex.org/blazegraph/namespace/nabu/sparql',
     templates: new Map([
        [ "geodex",'/../geodex/sparql_fulltext.txt'],
-       [ "geocode", '/../ecosearch/sparql_query.txt']
+       [ "geocodes", '/../geocodes/sparql_query.txt']
     ]),
     baseresults: './results',
 

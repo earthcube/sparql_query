@@ -45,8 +45,8 @@ exports.fullTextTests = {
 
 TODOS
 ====
-* Duplicates
-* queries Match
+* [x] Duplicates
+* [x] queries Match
 * Top N Match:
 Approval Test like.
 Save id's of top n results to file, ask, do they match
