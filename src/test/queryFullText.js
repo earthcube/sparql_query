@@ -1,10 +1,23 @@
 var _ = require('lodash')
+var fs = require('fs')
+var path = require('path')
 var expect = require("chai").expect;
 var should = require('chai').should();
 var fullTextTests = require("../testconfigs/fullTextTests")
 var results = require("../sparql_testing")
 
 describe("queryFullText", function () {
+    before(function (path, options) {
+        // runs once before the first test in this block
+        let templates = fullTextTests.fullTextTests.templates
+        templates.forEach(function(template,key){
+            var dir = __dirname + '/../../results/'+key;
+            if (!fs.existsSync(dir)) {
+                fs.mkdirSync(dir, {recursive: true});
+            }
+        })
+
+    });
     describe("general test", function () {
 
         let templates = fullTextTests.fullTextTests.templates
@@ -21,6 +34,10 @@ describe("queryFullText", function () {
 
                         const response = await results.results(template, t.params, server)
                         var b = await response.data.results.bindings
+
+                        var filename = __dirname + '/../../results/'+key +'/' + t.name ;
+                        fs.writeFileSync(filename, JSON.stringify(b,null,2), { flag: 'w+' })
+
                         b.should.have.length(t.expectedCount);
                         // dupe
                         // const gb = _.groupBy(b, s =>  s.s.value )
