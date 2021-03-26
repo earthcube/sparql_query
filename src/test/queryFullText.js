@@ -55,7 +55,7 @@ describe("queryFullText", function () {
                         // console.log(dupes)
 
 
-                    }).timeout(3000)
+                    }).timeout(10000)
                 }
             )
         })
@@ -83,10 +83,15 @@ describe("queryFullText", function () {
                             // const response1 = await testing.results(templates.get(key1), t.params, server)
                             // var r1 = await response1.data.results.bindings
 
-                            var filename = __dirname + '/../../results/compare/' + t.name + '_compare.json' ;
-                           var comp = await testing.compare(t.params,templates.get(key0), templates.get(key1), server, filename)
+                            var filename = __dirname + '/../../results/compare/' + t.name + '_compare_diffs.json' ;
+                           var comp = await testing.compare(t.params,
+                               templates.get(key0), 's',
+                               templates.get(key1), 'subj', server, filename)
 
-                            comp.lengths[0].should.equal(comp.lengths[1]);
+                            comp.unique_lengths[0].should.equal(comp.unique_lengths[1],
+                                'compare:different unique lengths');
+                            comp.result_lengths[0].should.equal(comp.result_lengths[1],
+                                'compare:different results lengths. Unique OK');
                             // dupe
                             // const gb = _.groupBy(b, s =>  s.s.value )
                             // const dupes = _.pickBy(gb,x => x.length > 1)
@@ -94,7 +99,7 @@ describe("queryFullText", function () {
                             // console.log(dupes)
 
 
-                        }).timeout(3000)
+                        }).timeout(10000)
 
 
             })
