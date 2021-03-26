@@ -7,17 +7,19 @@ var fullTextTests = require("../testconfigs/fullTextTests")
 var results = require("../sparql_testing")
 
 describe("queryFullText", function () {
-    before(function (path, options) {
+
+    before(function() {
         // runs once before the first test in this block
         let templates = fullTextTests.fullTextTests.templates
         templates.forEach(function(template,key){
             var dir = __dirname + '/../../results/'+key;
             if (!fs.existsSync(dir)) {
-                fs.mkdirSync(dir, {recursive: true});
+                fs.mkdirSync(dir, { recursive: true });
             }
         })
 
     });
+
     describe("general test", function () {
 
         let templates = fullTextTests.fullTextTests.templates
@@ -46,7 +48,7 @@ describe("queryFullText", function () {
                         // console.log(dupes)
 
 
-                    }).timeout(10000)
+                    }).timeout(3000)
                 }
             )
         })
@@ -81,7 +83,7 @@ describe("queryFullText", function () {
                             // console.log(dupes)
 
 
-                        }).timeout(10000)
+                        }).timeout(3000)
 
 
             })
