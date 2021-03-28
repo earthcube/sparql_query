@@ -22,7 +22,8 @@ describe(
     });
     describe("dupe test for geocodes", function () {
         let key = "geocodes"
-        let template = config.fullTextTests.templates.get(key)
+        let template = config.fullTextTests.templates.get(key).file
+        let indexKey = config.fullTextTests.templates.get(key).indexKey
 
         // templates.forEach(function (template,key) {
         let tests = config.fullTextTests.tests
@@ -46,7 +47,7 @@ describe(
 
                     var filename = __dirname + '/../../results/'+key +'/' + t.name +'_dupes.json';
 
-                    var dupes = testing.dupes(results, 'subj', filename)
+                    var dupes = testing.dupes(results, indexKey, filename)
 
                     Object.keys(dupes).should.have.length(0)
 

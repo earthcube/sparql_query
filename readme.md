@@ -1,4 +1,4 @@
-**Sparql test utilities for Earthcube**
+**Sparql  utilities for Earthcube**
 =============
 
 # Install
@@ -42,6 +42,10 @@ exports.fullTextTests = {
     ]
 }
 ```
+EXAMPLES
+======
+
+Need to populate examples
 
 TODOS
 ====
@@ -50,4 +54,13 @@ TODOS
 * Top N Match:
 Approval Test like.
 Save id's of top n results to file, ask, do they match
+  
+
+sparql
+=====
+* https://www.stardog.com/tutorials/sparql/
+* http://www.iro.umontreal.ca/~lapalme/ift6281/sparql-1_1-cheat-sheet.pdf
+* https://medium.com/wallscope/constructing-more-advanced-sparql-queries-72d5ade1eedc
+
+
 

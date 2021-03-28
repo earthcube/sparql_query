@@ -44,7 +44,7 @@ describe("queryFullText", function () {
                         // var filename = __dirname + '/../../results/'+key +'/' + t.name ;
                         // fs.writeFileSync(filename, JSON.stringify(b,null,2), { flag: 'w+' })
 
-                        var results = await testing.results(template,t.params, server)
+                        var results = await testing.results(template.file,t.params, server)
                         var filename = __dirname + '/../../results/'+key +'/' + t.name +'_results.json' ;
                         testing.writeJson(results,filename)
                         results.should.have.length(t.expectedCount);
@@ -65,17 +65,20 @@ describe("queryFullText", function () {
     describe("Compare Results", function () {
 
 
+        config.fullTextTests.comparisons.forEach(
+            function(c) {
+                let key0 = c[0]
+                let key1 = c[1]
+                config.fullTextTests.tests.forEach(
+                    function (t) {
+                        let templates = config.fullTextTests.templates
+                        let templateKeys = [...templates.keys()]
+                        // let key0 = templateKeys[0]
+                        // let key1 = templateKeys[1]
 
-        config.fullTextTests.tests.forEach(
-            function (t) {
-                let templates = config.fullTextTests.templates
-                let templateKeys = [...templates.keys()]
-                let key0= templateKeys[0]
-                let key1 = templateKeys[1]
-
-                let tests = config.fullTextTests.tests
-                let server = config.fullTextTests.server
-                let name = config.fullTextTests.name
+                        let tests = config.fullTextTests.tests
+                        let server = config.fullTextTests.server
+                        let name = config.fullTextTests.name
                         it(`compare  ${t.name} `, async function () {
 
                             // const response0 = await testing.results(templates.get(key0), t.params, server)
@@ -83,10 +86,10 @@ describe("queryFullText", function () {
                             // const response1 = await testing.results(templates.get(key1), t.params, server)
                             // var r1 = await response1.data.results.bindings
 
-                            var filename = __dirname + '/../../results/compare/' + t.name + '_compare_diffs.json' ;
-                           var comp = await testing.compare(t.params,
-                               templates.get(key0), 's',
-                               templates.get(key1), 'subj', server, filename)
+                            var filename = __dirname + '/../../results/compare/' + t.name + '_compare_diffs.json';
+                            var comp = await testing.compare(t.params,
+                                templates.get(key0).file, templates.get(key0).indexKey,
+                                templates.get(key1).file, templates.get(key1).indexKey, server, filename)
 
                             comp.unique_lengths[0].should.equal(comp.unique_lengths[1],
                                 'compare:different unique lengths');
@@ -102,6 +105,7 @@ describe("queryFullText", function () {
                         }).timeout(10000)
 
 
+                    })
             })
         ;
 

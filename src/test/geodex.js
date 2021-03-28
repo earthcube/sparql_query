@@ -3,14 +3,14 @@ var fs = require('fs')
 var path = require('path')
 var expect = require("chai").expect;
 var should = require('chai').should();
-var fullTextTests = require("../testconfigs/fullTextTests")
-var results = require("../eco_sparql_testing")
+var config = require("../testconfigs/fullTextTests")
+var testing = require("../eco_sparql_testing")
 
 describe("Geodex", function () {
     let key = "geodex"
     before(function() {
         // runs once before the first test in this block
-        let templates = fullTextTests.fullTextTests.templates
+        let templates = config.fullTextTests.templates
         templates.forEach(function(template,key){
             var dir = __dirname + '/../../results/'+key;
             if (!fs.existsSync(dir)) {
@@ -21,14 +21,14 @@ describe("Geodex", function () {
     });
     describe("dupe test for geodex", function () {
 
-        let template = fullTextTests.fullTextTests.templates.get(key)
-
+        let template = config.fullTextTests.templates.get(key).file
+        let indexKey = config.fullTextTests.templates.get(key).indexKey
         // templates.forEach(function (template,key) {
-        let tests = fullTextTests.fullTextTests.tests
-        let server = fullTextTests.fullTextTests.server
-        let name = fullTextTests.fullTextTests.name
+        let tests = config.fullTextTests.tests
+        let server = config.fullTextTests.server
+        let name = config.fullTextTests.name
 
-        fullTextTests.fullTextTests.tests.forEach(
+        config.fullTextTests.tests.forEach(
             function (t) {
                 it(`${key} duplicate full text for ${t.name} `, async function () {
 
@@ -46,7 +46,7 @@ describe("Geodex", function () {
 
                     var filename = __dirname + '/../../results/'+key +'/' + t.name +'_dupes.json';
 
-                    var dupes = testing.dupes(results, 's', filename)
+                    var dupes = testing.dupes(results, indexKey, filename)
                     Object.keys(dupes).should.have.length(0)
                     console.log(dupes)
 

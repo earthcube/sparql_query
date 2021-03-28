@@ -4,10 +4,13 @@ exports.fullTextTests = {
     // somepoint change this to read from some env config
     server: 'https://graph.geodex.org/blazegraph/namespace/nabu/sparql',
     templates: new Map([
-       [ "geodex",'/../geodex/sparql_fulltext.txt'],
-       [ "geocodes", '/../geocodes/sparql_query.txt']
+       [ "geodex",{ indexKey:'s',file:'/../geodex/sparql_fulltext.txt'}],
+       [ "geocodes", { indexKey:'subj',file:'/../geocodes/sparql_query.txt'}]
     ]),
     baseresults: './results',
+    comparisons: [
+        ['geodex', 'geocodes']
+    ],
 
    tests: [
        {

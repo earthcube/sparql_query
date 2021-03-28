@@ -8,9 +8,8 @@ const results = async function (queryTemplate, params, serverUrl) {
     //var self = this;
     var templateString = fs.readFileSync(__dirname + queryTemplate)
     const resultsTemplate = _.template(templateString, ES_TEMPLATE_OPTIONS)
-    //var sparql = self.state.queryTemplates[template_name]({'n': n, 'o': o, 'q': q})
+
     var sparql = resultsTemplate(params)
-    //var url = "https://graph.geodex.org/blazegraph/namespace/nabu/sparql";
     var url = serverUrl;
     var params = {
         query: sparql
