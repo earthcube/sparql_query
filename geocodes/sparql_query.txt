@@ -4,7 +4,7 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
                         prefix sschema: <https://schema.org/>
                         SELECT distinct ?subj ?pubname (GROUP_CONCAT(DISTINCT ?placename; SEPARATOR=", ") AS ?placenames)
         (GROUP_CONCAT(DISTINCT ?kwu; SEPARATOR=", ") AS ?kw)
-        ?datep  (GROUP_CONCAT(DISTINCT ?url; SEPARATOR=", ") AS ?disurl) 
+        ?datep  (GROUP_CONCAT(DISTINCT ?url; SEPARATOR=", ") AS ?disurl)
         (MAX(?score1) as ?score)  ?name ?description ?resourceType ?g
         WHERE {
             ?lit bds:search "${ q }" .
@@ -19,7 +19,7 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
                      Minus {?subj a sschema:Person } .
             graph ?g { ?subj schema:name|sschema:name ?name .
 										?subj schema:description|sschema:description ?description . }
-            optional {?subj schema:distribution/schema:url|schema:subjectOf/schema:url ?url .}
+            optional {?subj schema:distribution/schema:url|schema:subjectOf/schema:url|sschema:distribution/sschema:url|sschema:subjectOf/sschema:url ?url .}
             OPTIONAL {?subj schema:datePublished|sschema:datePublished ?date_p .}
             OPTIONAL {?subj schema:publisher/schema:name|sschema:publisher/sschema:name ?pub_name .}
             OPTIONAL {?subj schema:spatialCoverage/schema:name|sschema:spatialCoverage/sschema:name|sschema:sdPublisher ?place_name .}

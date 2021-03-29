@@ -2,7 +2,7 @@ var _ = require('lodash');
 var axios = require('axios')
 var fs = require('fs');
 let ES_TEMPLATE_OPTIONS = {interpolate: /\$\{([^\\}]*(?:\\.[^\\}]*)*)\}/g}
-
+const { Parser,transforms: { flatten } } = require('json2csv');
 
 const results = async function (queryTemplate, params, serverUrl) {
     //var self = this;
@@ -49,6 +49,14 @@ const writeJson = function (results, filename) {
     }
 }
 exports.writeJson = writeJson
+
+const writeCsv = function (results, fields, filename) {
+    if (filename) {
+        var parser= new Parser({transforms: [ flatten('__')]})
+        fs.writeFileSync(filename, parser(results), {flag: 'w+'})
+    }
+}
+exports.writeCsv = writeCsv
 
 exports.compare = async function (params, template0, keyField0, template1, keyField1, server, file) {
 
