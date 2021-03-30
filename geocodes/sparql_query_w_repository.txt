@@ -31,7 +31,7 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 		        BIND ( IF ( BOUND(?pub_name), ?pub_name, "No Publisher") as ?pubname ) .
             BIND ( IF ( BOUND(?place_name), ?place_name, "No spatialCoverage") as ?placename ) .
         }
-        GROUP BY ?subj ?datep ?pubname ?name ?description ?url ?score ?resourceType ?g
+        GROUP BY ?subj ?datep ?pubname ?name ?description  ?score ?resourceType ?g
         ORDER BY DESC(?score)
         LIMIT ${n}
         OFFSET ${o}

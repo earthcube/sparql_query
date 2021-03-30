@@ -1,10 +1,10 @@
 prefix schema: <http://schema.org/>
 prefix sschema: <https://schema.org/>
-SELECT DISTINCT ?s ?g ?url ?score  ?name ?description
+SELECT DISTINCT ?s ?g  (MIN(?disurl) as ?url) (MAX(?score1) as ?score)   ?name ?description
 WHERE {
   ?lit bds:search "${q}" .
   ?lit bds:matchAllTerms ${exact} .
-  ?lit bds:relevance ?score .
+  ?lit bds:relevance ?score1 .
   ?s ?p ?lit .
 
   VALUES (?dataset) { ( schema:Dataset ) ( sschema:Dataset ) }
@@ -17,9 +17,11 @@ WHERE {
 
   OPTIONAL {
 	?s schema:distribution|sschema:distribution ?dis .
-	?dis schema:contentUrl |sschema:contentUrl  ?url .
+	?dis schema:contentUrl |sschema:contentUrl  ?disurl .
   }
 
-} ORDER BY DESC(?score)
+}
+GROUP BY ?s ?g ?name ?description
+ORDER BY DESC(?score1)
 LIMIT ${n}
 OFFSET ${o}
