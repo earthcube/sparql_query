@@ -17,10 +17,17 @@ describe("queryFullText", function () {
                 fs.mkdirSync(dir, { recursive: true });
             }
         });
-        dir = __dirname + '/../../results/compare';
-        if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir, { recursive: true });
-        }
+
+        config.fullTextTests.comparisons.forEach(
+            function(x) {
+                let compareName = `${x[0]}_${x[1]}`
+                    dir = __dirname + '/../../results/compare/${compareName}';
+                if (!fs.existsSync(dir)) {
+                    fs.mkdirSync(dir, { recursive: true });
+                }
+            }
+        )
+
 
     });
 
@@ -79,6 +86,10 @@ describe("queryFullText", function () {
                         let tests = config.fullTextTests.tests
                         let server = config.fullTextTests.server
                         let name = config.fullTextTests.name
+                        config.fullTextTests.comparisons.forEach(
+                            function(x) {
+                                let compareName = `${x[0]}_${x[1]}`
+
                         it(`compare  ${t.name} `, async function () {
 
                             // const response0 = await testing.results(templates.get(key0), t.params, server)
@@ -86,7 +97,7 @@ describe("queryFullText", function () {
                             // const response1 = await testing.results(templates.get(key1), t.params, server)
                             // var r1 = await response1.data.results.bindings
 
-                            var filename = __dirname + '/../../results/compare/' + t.name + '_compare_diffs.json';
+                            var filename = __dirname + `/../../results/compare/${compareName}` + t.name + '_compare_diffs.json';
                             var comp = await testing.compare(t.params,
                                 templates.get(key0).file, templates.get(key0).indexKey,
                                 templates.get(key1).file, templates.get(key1).indexKey, server, filename)
@@ -104,6 +115,8 @@ describe("queryFullText", function () {
 
                         }).timeout(10000)
 
+                            }
+                        )
 
                     })
             })

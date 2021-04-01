@@ -5,11 +5,13 @@ exports.fullTextTests = {
     server: 'https://graph.geodex.org/blazegraph/namespace/nabu/sparql',
     templates: new Map([
        [ "geodex",{ indexKey:'s',file:'/../geodex/sparql_fulltext.txt'}],
-       [ "geocodes", { indexKey:'subj',file:'/../geocodes/sparql_query.txt'}]
+       [ "geocodes", { indexKey:'subj',file:'/../geocodes/sparql_query.txt'}],
+        [ "geocodes_original", { indexKey:'subj',file:'/../other_queries/facetsearch_2021_04_01.txt'}],
     ]),
     baseresults: './results',
     comparisons: [
-        ['geodex', 'geocodes']
+       ['geodex', 'geocodes'],
+        ['geocodes', 'geocodes_original']
     ],
 
    tests: [
@@ -104,9 +106,9 @@ exports.fullTextTests = {
            expectedCount: 142
        },
        {
-           name: '2019 northridge earthquake exact',
+           name: '2019 ridgecrest earthquake exact',
            params: {
-               q:'2019 northridge earthquake',
+               q:'2019 ridgecrest earthquake',
                n: 10000,
                o: 0,
                exact: true
@@ -114,12 +116,32 @@ exports.fullTextTests = {
            expectedCount: 142
        },
        {
-           name: '2019 northridge earthquake not all match',
+           name: '2019 ridgecrest earthquake not all match',
            params: {
-               q:'2019 northridge earthquake',
+               q:'2019 ridgecrest earthquake',
                n: 10000,
                o: 0,
                exact: false
+           },
+           expectedCount: 3842
+       },
+       {
+           name: 'rim fire not all match',
+           params: {
+               q:'rim fire',
+               n: 10000,
+               o: 0,
+               exact: false
+           },
+           expectedCount: 3842
+       },
+       {
+           name: 'rim fire all match',
+           params: {
+               q:'rim fire',
+               n: 10000,
+               o: 0,
+               exact: true
            },
            expectedCount: 3842
        }
