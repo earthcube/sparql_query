@@ -1,0 +1,14 @@
+PREFIX sdos: <https://schema.org/>
+PREFIX schemaold: <http://schema.org/>
+select DISTINCT    ?durl   ?dist  ?type
+WHERE
+{
+   graph <urn:gleaner:milled:bcodmo:69c27e67c39ab19c8110ff56fc1d05472bf91594> {
+   ?s schemaold:distribution|sdos:distribution ?dist ;
+        schemaold:name|sdos:name ?dataname  .
+   ?dist  schemaold:encodingFormat|sdos:encodingFormat ?type .
+         OPTIONAL {?dist sdos:contentUrl ?durl }.
+ }
+ BIND (str(?type) as ?label)
+
+}

@@ -86,7 +86,7 @@ exports.fullTextTests = {
            expectedCount: 164
        },
        {
-           name: 'Steens Reversal MagIC Demo 1',
+           name: 'Steens Reversal MagIC Demo 1 exact',
            params: {
                q:'Steens Reversal',
                n: 10000,
@@ -94,7 +94,17 @@ exports.fullTextTests = {
                exact: true
            },
            expectedCount: 17
+       },{
+           name: 'Steens Reversal MagIC Demo 1',
+           params: {
+               q:'Steens',
+               n: 10000,
+               o: 0,
+               exact: false
+           },
+           expectedCount: 17
        },
+
        {
            name: 'corelyzer archive CSDCO Demo',
            params: {
@@ -144,6 +154,44 @@ exports.fullTextTests = {
                exact: true
            },
            expectedCount: 3842
+       },
+       {
+           name: 'hydrologic extreme ',
+           params: {
+               q:'hydrologic extreme',
+               n: 10000,
+               o: 0,
+               exact: false
+           },
+           expectedCount: 58
+       },       {
+           name: 'hydrologic extreme exact',
+           params: {
+               q:'hydrologic extreme',
+               n: 10000,
+               o: 0,
+               exact: true
+           },
+           expectedCount: 58
+       },
+       {
+           name: 'Drought ',
+           params: {
+               q:'Drought',
+               n: 10000,
+               o: 0,
+               exact: false
+           },
+           expectedCount: 58
+       },       {
+           name: 'Drought exact',
+           params: {
+               q:'Drought',
+               n: 10000,
+               o: 0,
+               exact: true
+           },
+           expectedCount: 58
        }
    ]
 }

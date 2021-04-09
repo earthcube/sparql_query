@@ -31,7 +31,7 @@ SELECT distinct ?subj ?g ?resourceType ?name ?description  ?pubname (GROUP_CONCA
             BIND ( IF ( BOUND(?pub_name), ?pub_name, "No Publisher") as ?pubname ) .
             BIND ( IF ( BOUND(?place_name), ?place_name, "No spatialCoverage") as ?placename ) .
         }
-        GROUP BY ?subj ?pubname ?placenames ?kw ?datep ?disurl  ?name ?description  ?resourceType ?g
+        GROUP BY ?subj ?g ?pubname ?placenames ?kw ?datep ?disurl ?score  ?name ?description  ?resourceType
         ORDER BY DESC(?score)
 LIMIT ${ n }
 OFFSET ${ o }

@@ -21,7 +21,7 @@ describe("queryFullText", function () {
         config.fullTextTests.comparisons.forEach(
             function(x) {
                 let compareName = `${x[0]}_${x[1]}`
-                    dir = __dirname + '/../../results/compare/${compareName}';
+                    dir = __dirname + `/../../results/compare/${compareName}`;
                 if (!fs.existsSync(dir)) {
                     fs.mkdirSync(dir, { recursive: true });
                 }
@@ -90,14 +90,14 @@ describe("queryFullText", function () {
                             function(x) {
                                 let compareName = `${x[0]}_${x[1]}`
 
-                        it(`compare  ${t.name} `, async function () {
+                        it(`compare ${compareName} ${t.name} `, async function () {
 
                             // const response0 = await testing.results(templates.get(key0), t.params, server)
                             // var r0 = await response0.data.results.bindings
                             // const response1 = await testing.results(templates.get(key1), t.params, server)
                             // var r1 = await response1.data.results.bindings
 
-                            var filename = __dirname + `/../../results/compare/${compareName}` + t.name + '_compare_diffs.json';
+                            var filename = __dirname + `/../../results/compare/${compareName}/` + t.name + '_compare_diffs.json';
                             var comp = await testing.compare(t.params,
                                 templates.get(key0).file, templates.get(key0).indexKey,
                                 templates.get(key1).file, templates.get(key1).indexKey, server, filename)

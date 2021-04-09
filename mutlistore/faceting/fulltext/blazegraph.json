@@ -1,0 +1,10 @@
+{
+  "namespace": [
+    "prefix bds: <http://www.bigdata.com/rdf/search#>"
+  ],
+  "query" : [
+    ",?o bds:search \"${q}\" .",
+    ",?o bds:matchAllTerms true .",
+    ",?o bds:relevance ?score."
+  ]
+ }

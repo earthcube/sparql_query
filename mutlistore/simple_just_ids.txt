@@ -1,0 +1,6 @@
+${namespace}
+select DISTINCT ?s
+where {
+${query}
+?s ?p ?o .
+} order by desc(?score)

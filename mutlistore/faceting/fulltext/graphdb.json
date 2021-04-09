@@ -1,0 +1,12 @@
+{
+  "namspace": [
+    "PREFIX con: <http://www.ontotext.com/connectors/lucene#>",
+    "PREFIX luc: <http://www.ontotext.com/owlim/lucene#>",
+    "PREFIX con-inst: <http://www.ontotext.com/connectors/lucene/instance#>"
+  ],
+  "query": [
+    ",[] a con-inst:geocodes_fts ;",
+    "con:query \"${q}\" ;",
+   ", con:entities ?s ."
+  ]
+}
