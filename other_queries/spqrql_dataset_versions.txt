@@ -1,0 +1,15 @@
+prefix schema: <http://schema.org/>
+prefix sschema: <https://schema.org/>
+SELECT distinct ?subj ?citation ?version ?url ?g where {
+   graph ?g {
+        ?subj schema:identifier|sschema:identifier ?url .
+        ?subj schema:version|sschema:version ?version .
+        ?subj schema:citation|sschema:citation ?citation .
+        ?subj schema:sdPublisher|sschema:sdPublisher "EarthRef.org".
+    }
+        ?subj2 schema:citation|sschema:citation ?citation .
+        ?subj2 schema:version|sschema:version ?version2 .
+
+    FILTER (?version < ?version2).
+    }
+    GROUP BY ?citation ?version  ?subj  ?url ?g

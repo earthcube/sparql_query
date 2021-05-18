@@ -1,0 +1,27 @@
+prefix schema: <http://schema.org/>
+prefix sschema: <https://schema.org/>
+SELECT distinct ?subj ?citation ?version ?url where {
+    {SELECT distinct  ?citation (MAX(?version2) as ?version  )
+    where {
+
+
+       ?subj schema:citation|sschema:citation ?citation .
+        ?subj schema:version|sschema:version ?version2 .
+    filter (?version2 >1)
+
+    }
+        GROUP BY ?citation
+}
+
+
+        ?subj schema:identifier|sschema:identifier ?url .
+        ?subj schema:version|sschema:version ?version .
+        ?subj schema:citation|sschema:citation ?citation .
+
+
+
+
+
+    }
+    GROUP BY ?citation ?version  ?subj  ?url
+order by ?citation ?version

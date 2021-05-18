@@ -1,0 +1,11 @@
+prefix schema: <https://schema.org/>
+SELECT  ?pubname (count(distinct ?s) as ?scount)
+WHERE {
+  {
+
+       ?s schema:publisher ?pub .
+       ?pub schema:name ?pubname .
+       }
+}
+GROUP By ?pubname
+ORDER By DESC(?scount)
