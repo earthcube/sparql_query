@@ -1,27 +1,17 @@
 prefix schema: <http://schema.org/>
 prefix sschema: <https://schema.org/>
-SELECT distinct ?subj ?citation ?version ?url where {
-    {SELECT distinct  ?citation (MAX(?version2) as ?version  )
+SELECT distinct ?subj ?sameAs ?version ?url where {
+    {SELECT distinct  ?sameAs (MAX(?version2) as ?version  )
     where {
-
-
-       ?subj schema:citation|sschema:citation ?citation .
+       ?subj schema:sameAs|sschema:sameAs ?sameAs .
         ?subj schema:version|sschema:version ?version2 .
     filter (?version2 >1)
-
     }
-        GROUP BY ?citation
+        GROUP BY ?sameAs
 }
-
-
         ?subj schema:identifier|sschema:identifier ?url .
         ?subj schema:version|sschema:version ?version .
-        ?subj schema:citation|sschema:citation ?citation .
-
-
-
-
-
+        ?subj schema:sameAs|sschema:sameAs ?sameAs .
     }
-    GROUP BY ?citation ?version  ?subj  ?url
-order by ?citation ?version
+    GROUP BY ?sameAs ?version  ?subj  ?url
+order by ?sameAs ?version
