@@ -50,7 +50,7 @@ nbclient==0.5.3
 nbconvert==6.0.7
 nbformat==5.1.2
 nest-asyncio==1.5.1
-notebook==6.3.0
+notebook==6.4.1
 numpy==1.20.2
 packaging==20.9
 pandas==1.2.3
@@ -88,7 +88,7 @@ toolz==0.11.1
 tornado==6.1
 traitlets==5.0.5
 typing-extensions==3.7.4.3
-urllib3==1.26.4
+urllib3==1.26.5
 wcwidth==0.2.5
 webencodings==0.5.1
 widgetsnbextension==3.5.1
